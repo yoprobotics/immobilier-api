@@ -3,158 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateurs Immobiliers</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Calculateurs Immobiliers | Immofacile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .header {
+            margin-bottom: 2rem;
+        }
+        .calculator-card {
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        #result-container {
+            display: none;
+            margin-top: 1.5rem;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">ImmoCalcul</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#calculators">Calculateurs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
-                </ul>
+    <div class="container">
+        <div class="header text-center">
+            <h1>Calculateurs Immobiliers</h1>
+            <p class="lead">Des outils simples pour vos investissements immobiliers</p>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 mb-4">
+                <div class="card calculator-card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Calculateur Napkin FLIP (FIP10)</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Estimez rapidement la rentabilité d'un projet de FLIP immobilier.</p>
+                        <form id="napkin-flip-form">
+                            <div class="mb-3">
+                                <label for="finalPrice" class="form-label">Prix final (après travaux) $</label>
+                                <input type="number" class="form-control" id="finalPrice" name="finalPrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="initialPrice" class="form-label">Prix initial (achat) $</label>
+                                <input type="number" class="form-control" id="initialPrice" name="initialPrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="renovationPrice" class="form-label">Coût des rénovations $</label>
+                                <input type="number" class="form-control" id="renovationPrice" name="renovationPrice" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Calculer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card calculator-card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Calculateur Napkin MULTI (PAR)</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Estimez rapidement la liquidité d'un immeuble à revenus.</p>
+                        <form id="napkin-multi-form">
+                            <div class="mb-3">
+                                <label for="purchasePrice" class="form-label">Prix d'achat $</label>
+                                <input type="number" class="form-control" id="purchasePrice" name="purchasePrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apartmentCount" class="form-label">Nombre d'appartements</label>
+                                <input type="number" class="form-control" id="apartmentCount" name="apartmentCount" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="grossRevenue" class="form-label">Revenus bruts annuels $</label>
+                                <input type="number" class="form-control" id="grossRevenue" name="grossRevenue" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Calculer</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <header class="py-5 bg-primary text-white text-center">
-        <div class="container">
-            <h1 class="display-4">Calculateurs Immobiliers</h1>
-            <p class="lead">Des outils puissants pour vos investissements immobiliers</p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card calculator-card h-100">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">Montant d'offre FLIP</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Calculez le montant d'offre pour atteindre un profit cible.</p>
+                        <form id="flip-offer-form">
+                            <div class="mb-3">
+                                <label for="offerFinalPrice" class="form-label">Prix final (après travaux) $</label>
+                                <input type="number" class="form-control" id="offerFinalPrice" name="finalPrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="offerRenovationPrice" class="form-label">Coût des rénovations $</label>
+                                <input type="number" class="form-control" id="offerRenovationPrice" name="renovationPrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="targetProfit" class="form-label">Profit visé $</label>
+                                <input type="number" class="form-control" id="targetProfit" name="targetProfit" value="25000">
+                            </div>
+                            <button type="submit" class="btn btn-info w-100">Calculer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card calculator-card h-100">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="card-title mb-0">Prix maximal MULTI</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Calculez le prix d'achat maximal pour atteindre un cashflow cible.</p>
+                        <form id="multi-max-price-form">
+                            <div class="mb-3">
+                                <label for="maxApartmentCount" class="form-label">Nombre d'appartements</label>
+                                <input type="number" class="form-control" id="maxApartmentCount" name="apartmentCount" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="maxGrossRevenue" class="form-label">Revenus bruts annuels $</label>
+                                <input type="number" class="form-control" id="maxGrossRevenue" name="grossRevenue" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="targetCashflowPerUnit" class="form-label">Cashflow cible par porte/mois $</label>
+                                <input type="number" class="form-control" id="targetCashflowPerUnit" name="targetCashflowPerUnit" value="75">
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100">Calculer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <section id="calculators" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Nos Calculateurs</h2>
+        <div id="result-container" class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Résultat</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre id="result-content"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Formulaire Napkin FLIP
+            document.getElementById('napkin-flip-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const finalPrice = parseFloat(document.getElementById('finalPrice').value);
+                const initialPrice = parseFloat(document.getElementById('initialPrice').value);
+                const renovationPrice = parseFloat(document.getElementById('renovationPrice').value);
+                
+                fetch('/api/calculators/napkin-flip', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        finalPrice: finalPrice,
+                        initialPrice: initialPrice,
+                        renovationPrice: renovationPrice
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showResult(data);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    showError('Une erreur s\'est produite lors du calcul.');
+                });
+            });
             
-            <div class="row">
-                <!-- Calculateur Napkin Flip -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="calculator-section h-100">
-                        <div class="card-header" id="flip-napkin-header">
-                            <h2 class="text-white">Calculateur Napkin Flip</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Estimez rapidement la rentabilité d'un projet de flip immobilier avec notre méthode FIP10.</p>
-                            <div class="text-center mt-4">
-                                <a href="calculators/flip-napkin.html" class="btn btn-primary">Utiliser</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            // Formulaire Napkin MULTI
+            document.getElementById('napkin-multi-form').addEventListener('submit', function (e) {
+                e.preventDefault();
                 
-                <!-- Calculateur d'offre Flip -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="calculator-section h-100">
-                        <div class="card-header" id="flip-offer-header">
-                            <h2 class="text-white">Calculateur d'Offre Flip</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Déterminez le montant optimal pour votre offre d'achat sur un projet de flip.</p>
-                            <div class="text-center mt-4">
-                                <a href="calculators/flip-offer.html" class="btn btn-success">Utiliser</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+                const apartmentCount = parseInt(document.getElementById('apartmentCount').value);
+                const grossRevenue = parseFloat(document.getElementById('grossRevenue').value);
                 
-                <!-- Calculateur Napkin Multi -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="calculator-section h-100">
-                        <div class="card-header" id="multi-napkin-header">
-                            <h2 class="text-white">Calculateur Napkin Multi</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Évaluez rapidement la rentabilité d'un immeuble à logements multiples avec la méthode PAR.</p>
-                            <div class="text-center mt-4">
-                                <a href="calculators/multi-napkin.html" class="btn btn-info text-white">Utiliser</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                fetch('/api/calculators/napkin-multi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        purchasePrice: purchasePrice,
+                        apartmentCount: apartmentCount,
+                        grossRevenue: grossRevenue
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showResult(data);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    showError('Une erreur s\'est produite lors du calcul.');
+                });
+            });
+            
+            // Formulaire Montant d'offre FLIP
+            document.getElementById('flip-offer-form').addEventListener('submit', function (e) {
+                e.preventDefault();
                 
-                <!-- Calculateur de Coûts de Rénovation -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="calculator-section h-100">
-                        <div class="card-header" id="renovation-cost-header">
-                            <h2 class="text-white">Calculateur de Rénovations</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Estimez le coût total de vos projets de rénovation avec notre méthode de calcul par tranches de 500$.</p>
-                            <div class="text-center mt-4">
-                                <a href="calculators/renovation-cost.html" class="btn btn-warning text-white">Utiliser</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                const finalPrice = parseFloat(document.getElementById('offerFinalPrice').value);
+                const renovationPrice = parseFloat(document.getElementById('offerRenovationPrice').value);
+                const targetProfit = parseFloat(document.getElementById('targetProfit').value);
                 
-                <!-- Calculateur de Taxe de Mutation -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="calculator-section h-100">
-                        <div class="card-header" id="mutation-tax-header">
-                            <h2 class="text-white">Calculateur de Droits de Mutation</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Calculez les droits de mutation (taxe de bienvenue) pour votre transaction immobilière au Québec.</p>
-                            <div class="text-center mt-4">
-                                <a href="calculators/mutation-tax.html" class="btn btn-secondary">Utiliser</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                // Implémentez le calcul côté client pour l'instant
+                const tenPercent = finalPrice * 0.1;
+                const offerAmount = finalPrice - renovationPrice - tenPercent - targetProfit;
                 
-                <!-- Calculateur Hypothécaire -->
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="calculator-section h-100">
-                        <div class="card-header" id="mortgage-header">
-                            <h2 class="text-white">Calculateur Hypothécaire</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Calculez vos paiements hypothécaires mensuels et visualisez l'amortissement de votre prêt.</p>
-                            <div class="text-center mt-4">
-                                <a href="calculators/mortgage.html" class="btn btn-dark">Utiliser</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">À propos de nos calculateurs</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <p class="lead">Nos calculateurs immobiliers vous aident à prendre des décisions éclairées pour vos investissements. Basés sur des méthodes éprouvées par des investisseurs expérimentés, ces outils vous permettent d'évaluer rapidement la rentabilité potentielle de vos projets.</p>
-                    <p>Que vous soyez un investisseur débutant ou expérimenté, nos calculateurs vous aideront à :</p>
-                    <ul>
-                        <li>Évaluer rapidement la rentabilité d'un projet</li>
-                        <li>Déterminer le montant optimal pour vos offres d'achat</li>
-                        <li>Estimer les coûts de rénovation</li>
-                        <li>Calculer les paiements hypothécaires et les taxes</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-4 bg-dark text-white">
-        <div class="container text-center">
-            <p>© 2025 ImmoCalcul. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+                const result = {
+                    status: 'success',
+                    data: {
+                        finalPrice,
+                        renovationPrice,
+                        tenPercentFees: tenPercent,
+                        targetProfit,
+                        offerAmount,
+                        isViable: offerAmount > 0,
+                        message: offerAmount > 0 
+                            ? `Pour atteindre un profit de ${targetProfit}$, vous devriez offrir ${offerAmount.toFixed(2)}$`
+                            : 'Ce projet ne semble pas viable avec le profit visé - le prix d\'offre serait négatif'
+                    }
+                };
+                
+                showResult(result);
+            });
+            
+            // Formulaire Prix maximal MULTI
+            document.getElementById('multi-max-price-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const apartmentCount = parseInt(document.getElementById('maxApartmentCount').value);
+                const grossRevenue = parseFloat(document.getElementById('maxGrossRevenue').value);
+                const targetCashflowPerUnit = parseFloat(document.getElementById('targetCashflowPerUnit').value);
+                
+                // Implémentez le calcul côté client pour l'instant
+                let expenseRatio;
+                if (apartmentCount <= 2) {
+                    expenseRatio = 0.30;
+                } else if (apartmentCount <= 4) {
+                    expenseRatio = 0.35;
+                } else if (apartmentCount <= 6) {
+                    expenseRatio = 0.45;
+                } else {
+                    expenseRatio = 0.50;
+                }
+                
+                const operatingExpenses = grossRevenue * expenseRatio;
+                const netOperatingIncome = grossRevenue - operatingExpenses;
+                const targetAnnualCashflow = targetCashflowPerUnit * apartmentCount * 12;
+                const availableForMortgage = netOperatingIncome - targetAnnualCashflow;
+                const maxPurchasePrice = availableForMortgage > 0 ? availableForMortgage / (0.005 * 12) : 0;
+                
+                const result = {
+                    status: 'success',
+                    data: {
+                        apartmentCount,
+                        grossRevenue,
+                        expenseRatio: expenseRatio * 100,
+                        operatingExpenses,
+                        netOperatingIncome,
+                        targetCashflowPerUnit,
+                        targetAnnualCashflow,
+                        maxPurchasePrice,
+                        isViable: maxPurchasePrice > 0,
+                        message: maxPurchasePrice > 0
+                            ? `Pour atteindre un cashflow de ${targetCashflowPerUnit}$ par porte par mois, le prix d'achat ne devrait pas dépasser ${maxPurchasePrice.toFixed(2)}$`
+                            : 'Ce projet ne semble pas viable avec les revenus actuels - les revenus sont insuffisants pour générer le cashflow cible'
+                    }
+                };
+                
+                showResult(result);
+            });
+            
+            // Fonction pour afficher le résultat
+            function showResult(data) {
+                const resultContainer = document.getElementById('result-container');
+                const resultContent = document.getElementById('result-content');
+                
+                if (data.status === 'success') {
+                    resultContent.textContent = JSON.stringify(data.data, null, 2);
+                    resultContent.className = 'text-success';
+                } else {
+                    resultContent.textContent = JSON.stringify(data, null, 2);
+                    resultContent.className = 'text-danger';
+                }
+                
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour afficher une erreur
+            function showError(message) {
+                const resultContainer = document.getElementById('result-container');
+                const resultContent = document.getElementById('result-content');
+                
+                resultContent.textContent = message;
+                resultContent.className = 'text-danger';
+                
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

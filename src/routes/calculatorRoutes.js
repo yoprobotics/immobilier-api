@@ -5,7 +5,8 @@ const {
   calculateFlipOffer,
   calculateMultiNapkin,
   calculateMutationTax,
-  calculateMortgage
+  calculateMortgage,
+  calculateRenovationCost
 } = require('../controllers/calculatorController');
 
 // Protection des routes avec middleware d'authentification (à implémenter)
@@ -17,5 +18,6 @@ router.post('/flip-offer', calculateFlipOffer);
 router.post('/multi-napkin', calculateMultiNapkin);
 router.post('/mutation-tax', calculateMutationTax);
 router.post('/mortgage', calculateMortgage);
+router.post('/renovation-cost', calculateRenovationCost);
 
 module.exports = router;

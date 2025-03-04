@@ -2,10 +2,22 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
+    color: #444;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .calculator-section {
     transition: all 0.3s ease;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .calculator-section:hover {
@@ -13,14 +25,109 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.card-header {
+    padding: 15px 20px;
+    color: #fff;
+    font-weight: 600;
+}
+
 .card-header h2 {
     font-size: 1.5rem;
     margin-bottom: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #4e73df;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.1);
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: #4e73df;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #858796;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #717384;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background-color: #1cc88a;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #169a6b;
+    transform: translateY(-2px);
 }
 
 .result-container {
     border-top: 1px solid #dee2e6;
     padding-top: 20px;
+    margin-top: 20px;
+}
+
+.result-box {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 4px solid #4e73df;
+}
+
+.result-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #4e73df;
+}
+
+.result-value {
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 /* Animation pour les résultats */
@@ -29,8 +136,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Personnalisation des calculateurs */
@@ -58,6 +165,31 @@ body {
     background: linear-gradient(to right, #5a5c69, #373840);
 }
 
+/* Couleurs spécifiques pour chaque type de résultat */
+.result-profit {
+    border-left-color: #1cc88a;
+}
+
+.result-profit .result-title {
+    color: #1cc88a;
+}
+
+.result-loss {
+    border-left-color: #e74a3b;
+}
+
+.result-loss .result-title {
+    color: #e74a3b;
+}
+
+.result-neutral {
+    border-left-color: #f6c23e;
+}
+
+.result-neutral .result-title {
+    color: #f6c23e;
+}
+
 /* Style pour les items de rénovation */
 .renovation-item {
     border: 1px solid #dee2e6;
@@ -65,6 +197,11 @@ body {
     padding: 15px;
     margin-bottom: 15px;
     background-color: #f8f9fa;
+    transition: all 0.2s;
+}
+
+.renovation-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .renovation-item-header {
@@ -77,11 +214,292 @@ body {
 .renovation-item-header h4 {
     margin: 0;
     font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.renovation-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.renovation-detail {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #dee2e6;
+}
+
+.renovation-cost {
+    font-weight: 700;
+    color: #4e73df;
+    font-size: 1.1rem;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* Navigation */
+.calculator-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.calculator-nav-item {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calculator-nav-item:hover {
+    background-color: #f8f9fa;
+    border-color: #4e73df;
+}
+
+.calculator-nav-item.active {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    color: white;
+}
+
+/* Tooltips et infobulles */
+.info-tooltip {
+    display: inline-block;
+    margin-left: 5px;
+    color: #858796;
+    cursor: help;
+    position: relative;
+}
+
+.info-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 100;
+}
+
+/* Tables pour les résultats détaillés */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.results-table th,
+.results-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.results-table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+
+.results-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Alert messages */
+.alert {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid;
+}
+
+.alert-info {
+    background-color: #e8f4fd;
+    border-left-color: #36b9cc;
+    color: #1a5a68;
+}
+
+.alert-warning {
+    background-color: #fff9e6;
+    border-left-color: #f6c23e;
+    color: #8a6d0c;
+}
+
+.alert-danger {
+    background-color: #fde8e8;
+    border-left-color: #e74a3b;
+    color: #8b2c20;
+}
+
+.alert-success {
+    background-color: #e8f8f1;
+    border-left-color: #1cc88a;
+    color: #0f6848;
+}
+
+/* Graphiques et visualisations */
+.chart-container {
+    height: 300px;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* Progress bars */
+.progress {
+    height: 10px;
+    background-color: #eaecf4;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.6s ease;
+}
+
+.progress-bar-primary {
+    background-color: #4e73df;
+}
+
+.progress-bar-success {
+    background-color: #1cc88a;
+}
+
+.progress-bar-warning {
+    background-color: #f6c23e;
+}
+
+.progress-bar-danger {
+    background-color: #e74a3b;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.badge-primary {
+    background-color: #4e73df;
+    color: white;
+}
+
+.badge-success {
+    background-color: #1cc88a;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #f6c23e;
+    color: white;
+}
+
+.badge-danger {
+    background-color: #e74a3b;
+    color: white;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .card-header h2 {
         font-size: 1.2rem;
+    }
+    
+    .calculator-nav {
+        flex-direction: column;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .result-value {
+        font-size: 1rem;
+    }
+    
+    .renovation-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .renovation-controls {
+        margin-top: 10px;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .results-table {
+        font-size: 0.9rem;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 8px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode {
+        background-color: #1a202c;
+        color: #e2e8f0;
+    }
+    
+    body.dark-mode .calculator-section {
+        background-color: #2d3748;
+    }
+    
+    body.dark-mode .form-control {
+        background-color: #4a5568;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    body.dark-mode .result-box {
+        background-color: #2d3748;
+    }
+    
+    body.dark-mode .renovation-item {
+        background-color: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    body.dark-mode .calculator-nav-item {
+        background-color: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    body.dark-mode .results-table th {
+        background-color: #2d3748;
+    }
+    
+    body.dark-mode .results-table td {
+        border-color: #4a5568;
     }
 }

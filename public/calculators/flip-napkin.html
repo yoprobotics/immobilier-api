@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur Napkin Flip | ImmoCalcul</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">ImmoCalcul</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html#calculators">Calculateurs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">À propos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="calculator-nav container py-3">
+        <div class="calculator-nav-item active" onclick="window.location.href='flip-napkin.html'">
+            <i class="fas fa-calculator"></i> Napkin Flip
+        </div>
+        <div class="calculator-nav-item" onclick="window.location.href='flip-offer.html'">
+            <i class="fas fa-hand-holding-usd"></i> Offre Flip
+        </div>
+        <div class="calculator-nav-item" onclick="window.location.href='multi-napkin.html'">
+            <i class="fas fa-building"></i> Napkin Multi
+        </div>
+        <div class="calculator-nav-item" onclick="window.location.href='renovation-cost.html'">
+            <i class="fas fa-hammer"></i> Rénovations
+        </div>
+        <div class="calculator-nav-item" onclick="window.location.href='mutation-tax.html'">
+            <i class="fas fa-receipt"></i> Droits de Mutation
+        </div>
+        <div class="calculator-nav-item" onclick="window.location.href='mortgage.html'">
+            <i class="fas fa-home"></i> Hypothèque
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <div class="calculator-section" id="flip-napkin">
+            <div class="card-header">
+                <h2 class="text-white">Calculateur Napkin Flip (FIP10)</h2>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> La méthode "Napkin" vous permet d'estimer rapidement la rentabilité potentielle d'un projet de flip immobilier en utilisant seulement 3 données principales : le prix Final (après travaux), le prix Initial (d'achat) et le Prix des rénovations.
+                </div>
+                
+                <form id="flip-napkin-form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label" for="final-price">Prix Final (valeur de revente) <i class="fas fa-question-circle info-tooltip" data-tooltip="Prix de vente estimé après rénovations"></i></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="final-price" placeholder="0" min="0" step="1000" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label" for="initial-price">Prix Initial (prix d'achat) <i class="fas fa-question-circle info-tooltip" data-tooltip="Prix d'achat de la propriété"></i></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="initial-price" placeholder="0" min="0" step="1000" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label" for="renovation-price">Prix des Rénovations <i class="fas fa-question-circle info-tooltip" data-tooltip="Coût total estimé des rénovations"></i></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="renovation-price" placeholder="0" min="0" step="1000" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calculator"></i> Calculer le Profit
+                        </button>
+                        <button type="button" id="calculate-offer" class="btn btn-success ms-2">
+                            <i class="fas fa-hand-holding-usd"></i> Calculer l'Offre Optimale
+                        </button>
+                        <button type="reset" class="btn btn-secondary ms-2">
+                            <i class="fas fa-redo"></i> Réinitialiser
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="result-container mt-4 d-none" id="results-section">
+                    <h3>Résultats</h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="result-box" id="profit-result-box">
+                                <div class="result-title">Profit Estimé</div>
+                                <div class="result-value" id="profit-value">0 $</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="result-box" id="roi-result-box">
+                                <div class="result-title">Rendement sur Investissement (ROI)</div>
+                                <div class="result-value" id="roi-value">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-table-container mt-4">
+                        <h4>Détail des Calculs</h4>
+                        <table class="results-table">
+                            <tr>
+                                <th>Élément</th>
+                                <th>Montant</th>
+                            </tr>
+                            <tr>
+                                <td>Prix Final (valeur de revente)</td>
+                                <td id="detail-final-price">0 $</td>
+                            </tr>
+                            <tr>
+                                <td>- Prix Initial (prix d'achat)</td>
+                                <td id="detail-initial-price">0 $</td>
+                            </tr>
+                            <tr>
+                                <td>- Prix des Rénovations</td>
+                                <td id="detail-renovation-price">0 $</td>
+                            </tr>
+                            <tr>
+                                <td>- 10% de la valeur de revente (frais divers)</td>
+                                <td id="detail-fees">0 $</td>
+                            </tr>
+                            <tr>
+                                <td><strong>= Profit Estimé</strong></td>
+                                <td id="detail-profit">0 $</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="result-container mt-4 d-none" id="offer-section">
+                    <h3>Offre Optimale</h3>
+                    
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="target-profit">Profit Visé <i class="fas fa-question-circle info-tooltip" data-tooltip="Le profit que vous souhaitez réaliser sur ce projet"></i></label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="target-profit" value="25000" min="0" step="1000">
+                            <button class="btn btn-primary" id="recalculate-offer">Recalculer</button>
+                        </div>
+                    </div>
+                    
+                    <div class="result-box">
+                        <div class="result-title">Montant Maximal de l'Offre</div>
+                        <div class="result-value" id="offer-value">0 $</div>
+                    </div>
+                    
+                    <div class="results-table-container mt-4">
+                        <h4>Détail du Calcul</h4>
+                        <table class="results-table">
+                            <tr>
+                                <th>Élément</th>
+                                <th>Montant</th>
+                            </tr>
+                            <tr>
+                                <td>Prix Final (valeur de revente)</td>
+                                <td id="offer-detail-final-price">0 $</td>
+                            </tr>
+                            <tr>
+                                <td>- Prix des Rénovations</td>
+                                <td id="offer-detail-renovation-price">0 $</td>
+                            </tr>
+                            <tr>
+                                <td>- 10% de la valeur de revente (frais divers)</td>
+                                <td id="offer-detail-fees">0 $</td>
+                            </tr>
+                            <tr>
+                                <td>- Profit Visé</td>
+                                <td id="offer-detail-target-profit">0 $</td>
+                            </tr>
+                            <tr>
+                                <td><strong>= Montant Maximal de l'Offre</strong></td>
+                                <td id="offer-detail-max-offer">0 $</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 bg-dark text-white">
+        <div class="container text-center">
+            <p>© 2025 ImmoCalcul. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Formatage des montants en dollars canadiens
+        function formatMoney(amount) {
+            return new Intl.NumberFormat('fr-CA', { style: 'currency', currency: 'CAD' }).format(amount);
+        }
+        
+        // Formatage des pourcentages
+        function formatPercent(percent) {
+            return new Intl.NumberFormat('fr-CA', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(percent / 100);
+        }
+        
+        // Calcul du profit selon la méthode Napkin FIP10
+        function calculateProfit() {
+            const finalPrice = parseFloat(document.getElementById('final-price').value) || 0;
+            const initialPrice = parseFloat(document.getElementById('initial-price').value) || 0;
+            const renovationPrice = parseFloat(document.getElementById('renovation-price').value) || 0;
+            
+            // Calcul du 10% de la valeur de revente
+            const fees = finalPrice * 0.1;
+            
+            // Calcul du profit
+            const profit = finalPrice - initialPrice - renovationPrice - fees;
+            
+            // Calcul du ROI (Return on Investment)
+            const investment = initialPrice + renovationPrice;
+            const roi = investment > 0 ? (profit / investment) * 100 : 0;
+            
+            // Mise à jour des résultats
+            document.getElementById('profit-value').textContent = formatMoney(profit);
+            document.getElementById('roi-value').textContent = formatPercent(roi);
+            
+            // Mise à jour du tableau détaillé
+            document.getElementById('detail-final-price').textContent = formatMoney(finalPrice);
+            document.getElementById('detail-initial-price').textContent = formatMoney(initialPrice);
+            document.getElementById('detail-renovation-price').textContent = formatMoney(renovationPrice);
+            document.getElementById('detail-fees').textContent = formatMoney(fees);
+            document.getElementById('detail-profit').textContent = formatMoney(profit);
+            
+            // Affichage de la section des résultats
+            document.getElementById('results-section').classList.remove('d-none');
+            
+            // Ajout d'une classe selon le profit (positif, négatif)
+            const profitBox = document.getElementById('profit-result-box');
+            const roiBox = document.getElementById('roi-result-box');
+            
+            if (profit > 25000) {
+                profitBox.className = 'result-box result-profit';
+                roiBox.className = 'result-box result-profit';
+            } else if (profit > 0) {
+                profitBox.className = 'result-box result-neutral';
+                roiBox.className = 'result-box result-neutral';
+            } else {
+                profitBox.className = 'result-box result-loss';
+                roiBox.className = 'result-box result-loss';
+            }
+            
+            return { finalPrice, initialPrice, renovationPrice, fees, profit };
+        }
+        
+        // Calcul de l'offre optimale
+        function calculateOffer() {
+            const finalPrice = parseFloat(document.getElementById('final-price').value) || 0;
+            const renovationPrice = parseFloat(document.getElementById('renovation-price').value) || 0;
+            const targetProfit = parseFloat(document.getElementById('target-profit').value) || 0;
+            
+            // Calcul du 10% de la valeur de revente
+            const fees = finalPrice * 0.1;
+            
+            // Calcul de l'offre maximale
+            const maxOffer = finalPrice - renovationPrice - fees - targetProfit;
+            
+            // Mise à jour des résultats
+            document.getElementById('offer-value').textContent = formatMoney(maxOffer);
+            
+            // Mise à jour du tableau détaillé
+            document.getElementById('offer-detail-final-price').textContent = formatMoney(finalPrice);
+            document.getElementById('offer-detail-renovation-price').textContent = formatMoney(renovationPrice);
+            document.getElementById('offer-detail-fees').textContent = formatMoney(fees);
+            document.getElementById('offer-detail-target-profit').textContent = formatMoney(targetProfit);
+            document.getElementById('offer-detail-max-offer').textContent = formatMoney(maxOffer);
+            
+            // Affichage de la section de l'offre
+            document.getElementById('offer-section').classList.remove('d-none');
+        }
+        
+        // Gestionnaire d'événement pour le formulaire
+        document.getElementById('flip-napkin-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateProfit();
+        });
+        
+        // Gestionnaire d'événement pour le bouton de calcul d'offre
+        document.getElementById('calculate-offer').addEventListener('click', function() {
+            const data = calculateProfit();
+            if (data.finalPrice > 0 && data.renovationPrice > 0) {
+                calculateOffer();
+            } else {
+                alert('Veuillez d\'abord remplir les champs Prix Final et Prix des Rénovations.');
+            }
+        });
+        
+        // Gestionnaire d'événement pour le bouton de recalcul d'offre
+        document.getElementById('recalculate-offer').addEventListener('click', function() {
+            calculateOffer();
+        });
+    </script>
+</body>
+</html>

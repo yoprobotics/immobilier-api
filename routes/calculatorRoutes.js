@@ -1,10 +1,8 @@
 /**
  * Routes API pour les calculateurs immobiliers
  */
-
 const express = require('express');
 const router = express.Router();
-
 // Contrôleurs
 const flipController = require('../controllers/flipController');
 const multiController = require('../controllers/multiController');
@@ -17,7 +15,6 @@ const mortgageController = require('../controllers/mortgageController');
  */
 // Calculer le profit d'un flip
 router.post('/flip/profit', flipController.calculateProfit);
-
 // Calculer l'offre optimale pour un flip
 router.post('/flip/offer', flipController.calculateOffer);
 
@@ -26,7 +23,6 @@ router.post('/flip/offer', flipController.calculateOffer);
  */
 // Calculer la rentabilité d'un immeuble multi-logements
 router.post('/multi/rentability', multiController.calculateRentability);
-
 // Calculer l'offre optimale pour un multi
 router.post('/multi/offer', multiController.calculateOffer);
 
@@ -35,7 +31,6 @@ router.post('/multi/offer', multiController.calculateOffer);
  */
 // Calculer le coût total des rénovations
 router.post('/renovation/cost', renovationController.calculateCost);
-
 // Obtenir des estimations par pièce
 router.get('/renovation/estimates', renovationController.getEstimates);
 
@@ -50,7 +45,6 @@ router.post('/mutation/tax', mutationController.calculateTax);
  */
 // Calculer le paiement hypothécaire mensuel
 router.post('/mortgage/payment', mortgageController.calculatePayment);
-
 // Générer un tableau d'amortissement
 router.post('/mortgage/amortization', mortgageController.generateAmortizationTable);
 

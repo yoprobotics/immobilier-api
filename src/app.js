@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const helmet = require('helmet');
 const calculatorRoutes = require('./routes/calculatorRoutes');
 const { errorHandler } = require('./middleware/errorMiddleware');
 
@@ -21,14 +22,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
-
-// En-têtes de sécurité
-app.use((req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-XSS-Protection', '1; mode=block');
-  res.setHeader('X-Frame-Options', 'DENY');
-  next();
-});
+app.use(helmet()); // Protection des en-têtes HTTP
 
 // Routes
 app.use('/api/calculators', calculatorRoutes);

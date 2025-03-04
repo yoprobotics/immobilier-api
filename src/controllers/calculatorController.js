@@ -246,3 +246,113 @@ exports.calculateMortgage = async (req, res, next) => {
     next(error);
   }
 };
+
+// @desc    Estimer les coûts de rénovation avec la méthode des 500$
+// @route   POST /api/calculators/renovation-cost
+// @access  Private
+exports.calculateRenovationCost = async (req, res, next) => {
+  try {
+    const { items } = req.body;
+    
+    // Validation des champs requis
+    if (!items || !Array.isArray(items)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Une liste d\'éléments à rénover est requise'
+      });
+    }
+    
+    // Prix standards de rénovation selon la méthode à 500$
+    const standardPrices = {
+      kitchen: 10000,          // Cuisine de base
+      luxuryKitchen: 25000,    // Cuisine de luxe
+      bathroom: 5000,          // Salle de bain standard
+      halfBathroom: 3000,      // Salle d'eau
+      exteriorDoor: 1500,      // Porte extérieure
+      interiorDoor: 500,       // Porte intérieure + garde-robe
+      basementWindow: 500,     // Fenêtre sous-sol
+      bedroomWindow: 500,      // Fenêtre chambre
+      livingroomWindow: 1500,  // Fenêtre salon (grande)
+      flooringPerSqFt: 5,      // Planchers ($/pied carré)
+      paintPerGallon: 500      // Peinture ($/gallon)
+    };
+    
+    let totalCost = 0;
+    const detailedCosts = [];
+    
+    // Calculer le coût total
+    for (const item of items) {
+      let itemCost = 0;
+      
+      switch (item.type) {
+        case 'kitchen':
+          itemCost = item.luxury ? standardPrices.luxuryKitchen : standardPrices.kitchen;
+          break;
+        case 'bathroom':
+          itemCost = standardPrices.bathroom;
+          break;
+        case 'halfBathroom':
+          itemCost = standardPrices.halfBathroom;
+          break;
+        case 'exteriorDoor':
+          itemCost = standardPrices.exteriorDoor;
+          break;
+        case 'interiorDoor':
+          itemCost = standardPrices.interiorDoor * (item.quantity || 1);
+          break;
+        case 'window':
+          switch (item.subtype) {
+            case 'basement':
+              itemCost = standardPrices.basementWindow * (item.quantity || 1);
+              break;
+            case 'bedroom':
+              itemCost = standardPrices.bedroomWindow * (item.quantity || 1);
+              break;
+            case 'livingroom':
+              itemCost = standardPrices.livingroomWindow * (item.quantity || 1);
+              break;
+            default:
+              itemCost = standardPrices.bedroomWindow * (item.quantity || 1);
+          }
+          break;
+        case 'flooring':
+          // Arrondir à la tranche de 500$ supérieure
+          itemCost = Math.ceil((item.squareFeet * standardPrices.flooringPerSqFt) / 500) * 500;
+          break;
+        case 'paint':
+          itemCost = standardPrices.paintPerGallon * (item.gallons || 1);
+          break;
+        case 'custom':
+          // Pour tout autre élément, arrondir à la tranche de 500$ supérieure
+          itemCost = Math.ceil((item.cost || 0) / 500) * 500;
+          break;
+        default:
+          // Par défaut, utiliser la méthode à 500$ pour tout élément non spécifié
+          itemCost = 500;
+      }
+      
+      detailedCosts.push({
+        description: item.description || item.type,
+        cost: itemCost
+      });
+      
+      totalCost += itemCost;
+    }
+    
+    // Ajouter une contingence de 10% pour les imprévus
+    const contingency = totalCost * 0.1;
+    const grandTotal = totalCost + contingency;
+    
+    res.status(200).json({
+      success: true,
+      data: {
+        detailedCosts,
+        subtotal: totalCost,
+        contingency,
+        total: grandTotal
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};

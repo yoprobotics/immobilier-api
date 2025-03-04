@@ -1,0 +1,87 @@
+/* Styles généraux */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.calculator-section {
+    transition: all 0.3s ease;
+}
+
+.calculator-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.result-container {
+    border-top: 1px solid #dee2e6;
+    padding-top: 20px;
+}
+
+/* Animation pour les résultats */
+.fade-in {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Personnalisation des calculateurs */
+#flip-napkin .card-header {
+    background: linear-gradient(to right, #4e73df, #2e59d9);
+}
+
+#flip-offer .card-header {
+    background: linear-gradient(to right, #1cc88a, #169a6b);
+}
+
+#multi-napkin .card-header {
+    background: linear-gradient(to right, #36b9cc, #258391);
+}
+
+#renovation-cost .card-header {
+    background: linear-gradient(to right, #f6c23e, #dda20a);
+}
+
+#mutation-tax .card-header {
+    background: linear-gradient(to right, #858796, #60616f);
+}
+
+#mortgage .card-header {
+    background: linear-gradient(to right, #5a5c69, #373840);
+}
+
+/* Style pour les items de rénovation */
+.renovation-item {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f8f9fa;
+}
+
+.renovation-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.renovation-item-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-header h2 {
+        font-size: 1.2rem;
+    }
+}
